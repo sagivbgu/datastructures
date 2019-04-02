@@ -1,6 +1,12 @@
 public class FloorsArrayLink {
-    //@TODO: add fields
-
+    
+	double key;
+	FloorsArrayLink nextKey;
+	FloorsArrayLink prevKey;
+	final int arrSize;
+	FloorsArrayLink[] arrFront;
+	FloorsArrayLink[] arrBack;
+	
     public FloorsArrayLink(double key, int arrSize){
         //@TODO: implement
     }
