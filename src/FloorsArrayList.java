@@ -89,8 +89,4 @@ public class FloorsArrayList implements DynamicSet {
         //@TODO: implement
         return 0;
     }
-
-    private boolean isBetween(double curent, double next, double key) {
-        return () || (key < curent && key > next);
-    }
 }
