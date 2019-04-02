@@ -1,42 +1,51 @@
 public class FloorsArrayLink {
     
-	double key;
-	FloorsArrayLink nextKey;
-	FloorsArrayLink prevKey;
-	final int arrSize;
-	FloorsArrayLink[] arrFront;
-	FloorsArrayLink[] arrBack;
+    private	double key;
+    private FloorsArrayLink nextKey;
+    private FloorsArrayLink prevKey;
+    private final int arrSize;
+    private FloorsArrayLink[] arrFront;
+    private FloorsArrayLink[] arrBack;
 	
     public FloorsArrayLink(double key, int arrSize){
-        //@TODO: implement
+       this.key=key;
+       this.arrSize=arrSize;
+       
     }
 
     public double getKey() {
-        //@TODO: implement
-        return 0;
+        return this.key;
     }
 
     public FloorsArrayLink getNext(int i) {
-        //@TODO: implement
-        return null;
+        if(this.arrSize<i)
+        	return null;
+        return this.arrFront[i-1];
     }
 
     public FloorsArrayLink getPrev(int i) {
-        //@TODO: implement
-        return null;
+        if(this.arrSize<i)
+        	return null;
+        return this.arrBack[i-1];
     }
 
     public void setNext(int i, FloorsArrayLink next) {
-        //@TODO: implement
+        if(this.arrSize>=i)
+        {
+        	this.arrFront[i-1]=next;
+        }
+
     }
 
     public void setPrev(int i, FloorsArrayLink prev) {
-        //@TODO: implement
+        if(this.arrSize>=i)
+        {
+        	this.arrBack[i-1]=next;
+        }
     }
 
     public int getArrSize(){
-        //@TODO: implement
-        return 0;
+         return arrSize;
     }
 }
 
