@@ -40,7 +40,7 @@ public class FloorsArrayLink {
     public void setPrev(int i, FloorsArrayLink prev) {
         if(this.arrSize>=i)
         {
-        	this.arrBack[i-1]=next;
+        	this.arrBack[i-1]=prev;
         }
     }
 
