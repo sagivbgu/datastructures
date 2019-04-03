@@ -8,6 +8,8 @@ public class FloorsArrayLink {
     public FloorsArrayLink(double key, int arrSize){
        this.key=key;
        this.arrSize=arrSize;
+       this.arrBack= new FloorsArrayLink[arrSize];
+       this.arrFront= new FloorsArrayLink[arrSize];
        
     }
 
