@@ -79,11 +79,11 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double minimum() {
-        return this.negtiveInfintyLink.nextKey.getKey();
+        return this.negtiveInfintyLink.getNext(0).getKey();
     }
 
     @Override
     public double maximum() {
-        return this.infintyLink.prevKey.getKey();
+        return this.infintyLink.getPrev(0).getKey();
     }
 }
