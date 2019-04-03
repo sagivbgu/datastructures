@@ -109,12 +109,12 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double minimum() {
-        return this.negativeInfinityLink.getNext(0).getKey();
+        return this.negativeInfinityLink.getNext(1).getKey();
     }
 
     @Override
     public double maximum() {
-        return this.infinityLink.getPrev(0).getKey();
+        return this.infinityLink.getPrev(1).getKey();
     }
 
     private void insertBetween(FloorsArrayLink newLink, FloorsArrayLink predecessor, FloorsArrayLink successor, int i) {
