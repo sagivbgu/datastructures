@@ -10,7 +10,6 @@ public class FloorsArrayLink {
         this.arrSize = arrSize;
         this.arrBack = new FloorsArrayLink[arrSize];
         this.arrFront = new FloorsArrayLink[arrSize];
-
     }
 
     public double getKey() {
@@ -33,7 +32,6 @@ public class FloorsArrayLink {
         if (this.arrSize >= i) {
             this.arrFront[i - 1] = next;
         }
-
     }
 
     public void setPrev(int i, FloorsArrayLink prev) {
@@ -43,9 +41,6 @@ public class FloorsArrayLink {
     }
 
     public int getArrSize() {
-        return arrSize;
+        return this.arrSize;
     }
-
-
 }
-
