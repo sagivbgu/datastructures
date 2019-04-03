@@ -20,7 +20,52 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public void insert(double key, int arrSize) {
-        //@TODO: implement
+        FloorsArrayLink newLink = new FloorsArrayLink(key, arrSize);
+        FloorsArrayLink prevLink = null;
+        FloorsArrayLink currLink = this.negtiveInfintyLink;
+        FloorsArrayLink nextLink = this.negtiveInfintyLink.getNext(this.maxArrSize - 1);
+        int i = this.maxArrSize;
+        while (nextLink != prevLink || i != 1) {
+            if (key == currLink.getKey())
+                return currLink;
+
+            if (key > currLink.getKey() && key < nextLink.getKey()) {
+                if (i == arrSize) {
+                    currLink.setPrev(i, newLink);
+                    prevLink.setNext(i, newLink);
+                    newLink.setPrev(i, prevLink);
+                    newLink.setNext(i, nextLink);
+                }
+                if (i > 1)
+                    i--;
+                prevLink = currLink;
+                currLink = nextLink;
+                nextLink = nextLink.getNext(i);
+
+            } else if (key < currLink.getKey() && key > nextLink.getKey()) {
+                if (i == arrSize) {
+                    currLink.setNext(i, newLink);
+                    prevLink.setPrev(i, newLink);
+                    newLink.setNext(i, prevLink);
+                    newLink.setPrev(i, nextLink);
+                }
+                if (i > 1)
+                    i--;
+                prevLink = currLink;
+                currLink = nextLink;
+                nextLink = nextLink.getPrev(i);
+
+            } else if (key > currLink.getKey() && key > nextLink.getKey()) {
+                prevLink = currLink;
+                currLink = nextLink;
+                nextLink = nextLink.getNext(i);
+
+            } else if (key < currLink.getKey() && key < nextLink.getKey()) {
+                prevLink = currLink;
+                currLink = nextLink;
+                nextLink = nextLink.getPrev(i);
+            }
+        }
     }
 
     @Override
@@ -33,20 +78,20 @@ public class FloorsArrayList implements DynamicSet {
         FloorsArrayLink prevLink = null;
         FloorsArrayLink currLink = this.negtiveInfintyLink;
         FloorsArrayLink nextLink = this.negtiveInfintyLink.getNext(this.maxArrSize - 1);
-        int i = this.maxArrSize - 1;
-        while (nextLink != prevLink || i != 0) {
+        int i = this.maxArrSize;
+        while (nextLink != prevLink || i != 1) {
             if (key == currLink.getKey())
                 return currLink;
 
             if (key > currLink.getKey() && key < nextLink.getKey()) {
-                if (i > 0)
+                if (i > 1)
                     i--;
                 prevLink = currLink;
                 currLink = nextLink;
                 nextLink = nextLink.getNext(i);
 
             } else if (key < currLink.getKey() && key > nextLink.getKey()) {
-                if (i > 0)
+                if (i > 1)
                     i--;
                 prevLink = currLink;
                 currLink = nextLink;
