@@ -118,14 +118,12 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double successor(FloorsArrayLink link) {
-        //@TODO: implement
-        return 0;
+        return link.getNext(0).getKey();
     }
 
     @Override
     public double predecessor(FloorsArrayLink link) {
-        //@TODO: implement
-        return 0;
+        return link.getPrev(0).getKey();
     }
 
     @Override
