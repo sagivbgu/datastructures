@@ -14,8 +14,7 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public int getSize() {
-        //@TODO: implement
-        return 0;
+        return this.size;
     }
 
     @Override
@@ -80,13 +79,11 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double minimum() {
-        //@TODO: implement
-        return 0;
+        return this.negtiveInfintyLink.nextKey.getKey();
     }
 
     @Override
     public double maximum() {
-        //@TODO: implement
-        return 0;
+        return this.infintyLink.prevKey.getKey();
     }
 }
