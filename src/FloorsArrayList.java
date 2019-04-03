@@ -25,9 +25,6 @@ public class FloorsArrayList implements DynamicSet {
         FloorsArrayLink nextLink = this.negtiveInfintyLink.getNext(this.maxArrSize - 1);
         int i = this.maxArrSize;
         while (nextLink != prevLink || i != 1) {
-            if (key == currLink.getKey())
-                return currLink;
-
             if (key > currLink.getKey() && key < nextLink.getKey()) {
                 if (i == arrSize) {
                     currLink.setPrev(i, newLink);
@@ -80,34 +77,26 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public FloorsArrayLink lookup(double key) {
+        int i = this.maxArrSize;
         FloorsArrayLink prevLink = null;
         FloorsArrayLink currLink = this.negtiveInfintyLink;
-        FloorsArrayLink nextLink = this.negtiveInfintyLink.getNext(this.maxArrSize - 1);
-        int i = this.maxArrSize;
+        FloorsArrayLink nextLink = currLink.getNext(i);
+
         while (nextLink != prevLink || i != 1) {
             if (key == currLink.getKey())
                 return currLink;
 
-            if (key > currLink.getKey() && key < nextLink.getKey()) {
-                if (i > 1)
+            if (key > currLink.getKey()) {
+                if (key < nextLink.getKey() && i > 1) {
                     i--;
+                }
                 prevLink = currLink;
                 currLink = nextLink;
                 nextLink = nextLink.getNext(i);
 
-            } else if (key < currLink.getKey() && key > nextLink.getKey()) {
-                if (i > 1)
+            } else {
+                if (key > nextLink.getKey() && i > 1)
                     i--;
-                prevLink = currLink;
-                currLink = nextLink;
-                nextLink = nextLink.getPrev(i);
-
-            } else if (key > currLink.getKey() && key > nextLink.getKey()) {
-                prevLink = currLink;
-                currLink = nextLink;
-                nextLink = nextLink.getNext(i);
-
-            } else if (key < currLink.getKey() && key < nextLink.getKey()) {
                 prevLink = currLink;
                 currLink = nextLink;
                 nextLink = nextLink.getPrev(i);
