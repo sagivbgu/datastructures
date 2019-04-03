@@ -1,13 +1,13 @@
 public class FloorsArrayList implements DynamicSet {
-    private FloorsArrayLink infintyLink;
-    private FloorsArrayLink negtiveInfintyLink;
+    private FloorsArrayLink infinityLink;
+    private FloorsArrayLink negativeInfinityLink;
     private int size;
     private int maxArrSize;
 
 
     public FloorsArrayList(int N) {
-        this.infintyLink = new FloorsArrayLink(Double.POSITIVE_INFINITY, N);
-        this.negtiveInfintyLink = new FloorsArrayLink(Double.NEGATIVE_INFINITY, N);
+        this.infinityLink = new FloorsArrayLink(Double.POSITIVE_INFINITY, N);
+        this.negativeInfinityLink = new FloorsArrayLink(Double.NEGATIVE_INFINITY, N);
         this.size = 0;
         this.maxArrSize = 0;
     }
@@ -21,53 +21,61 @@ public class FloorsArrayList implements DynamicSet {
     public void insert(double key, int arrSize) {
         int i = this.maxArrSize;
         FloorsArrayLink newLink = new FloorsArrayLink(key, arrSize);
-        FloorsArrayLink prevLink = null;
-        FloorsArrayLink currLink = this.negtiveInfintyLink;
-        FloorsArrayLink nextLink = currLink.getNext(i);
+        FloorsArrayLink prevLink;
+        FloorsArrayLink currLink = this.negativeInfinityLink.getNext(i);
 
-        while (nextLink != prevLink || i != 1) {
+        while (i != 0) {
             if (key > currLink.getKey()) {
-                if (key < nextLink.getKey()) {
+                prevLink = currLink;
+                currLink = currLink.getNext(i);
+
+                if (key <= currLink.getKey()) {
                     if (i <= arrSize)
-                        insertBetween(newLink, currLink, nextLink, i);
-
-                    if (i > 1)
-                        i--;
+                        insertBetween(newLink, prevLink, currLink, i);
+                    i--;
                 }
 
+            } else {
                 prevLink = currLink;
-                currLink = nextLink;
-                nextLink = nextLink.getNext(i);
+                currLink = currLink.getPrev(i);
 
-            } else { // key == currLink.getKey() isn't possible
-                if (key > nextLink.getKey()) {
-                    if (i == arrSize)
-                        insertBetween(newLink, nextLink, currLink, i);
-                    if (i > 1)
-                        i--;
+                if (key >= currLink.getKey()) {
+                    if (i <= arrSize)
+                        insertBetween(newLink, currLink, prevLink, i);
+                    i--;
                 }
-                prevLink = currLink;
-                currLink = nextLink;
-                nextLink = nextLink.getPrev(i);
             }
         }
+
+        this.size++;
+        if (arrSize > this.maxArrSize)
+            this.maxArrSize = arrSize;
     }
 
     @Override
     public void remove(FloorsArrayLink toRemove) {
+        this.maxArrSize = 0;
+
         for (int i = toRemove.getArrSize(); i > 1; i--) {
             FloorsArrayLink prevLink = toRemove.getPrev(i);
             FloorsArrayLink nextLink = toRemove.getNext(i);
 
             prevLink.setNext(i, nextLink);
             nextLink.setPrev(i, prevLink);
+
+            if (prevLink != this.negativeInfinityLink && prevLink.getArrSize() > this.maxArrSize)
+                this.maxArrSize = prevLink.getArrSize();
+            if (nextLink != this.infinityLink && nextLink.getArrSize() > this.maxArrSize)
+                this.maxArrSize = nextLink.getArrSize();
         }
+
+        this.size--;
     }
 
     @Override
     public FloorsArrayLink lookup(double key) {
         int i = this.maxArrSize;
-        FloorsArrayLink currLink = this.negtiveInfintyLink.getNext(i);
+        FloorsArrayLink currLink = this.negativeInfinityLink.getNext(i);
 
         while (i != 0) {
             if (key > currLink.getKey()) {
@@ -91,24 +99,22 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double successor(FloorsArrayLink link) {
-        //@TODO: implement
-        return 0;
+        return link.getNext(1).getKey();
     }
 
     @Override
     public double predecessor(FloorsArrayLink link) {
-        //@TODO: implement
-        return 0;
+        return link.getPrev(1).getKey();
     }
 
     @Override
     public double minimum() {
-        return this.negtiveInfintyLink.getNext(0).getKey();
+        return this.negativeInfinityLink.getNext(0).getKey();
     }
 
     @Override
     public double maximum() {
-        return this.infintyLink.getPrev(0).getKey();
+        return this.infinityLink.getPrev(0).getKey();
     }
 
     private void insertBetween(FloorsArrayLink newLink, FloorsArrayLink predecessor, FloorsArrayLink successor, int i) {
