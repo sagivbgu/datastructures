@@ -1,8 +1,6 @@
 public class FloorsArrayLink {
     
     private	double key;
-    protected FloorsArrayLink nextKey;
-    protected FloorsArrayLink prevKey;
     private final int arrSize;
     private FloorsArrayLink[] arrFront;
     private FloorsArrayLink[] arrBack;
