@@ -1,8 +1,6 @@
 public class FloorsArrayLink {
     
     private	double key;
-    protected FloorsArrayLink nextKey;
-    protected FloorsArrayLink prevKey;
     private final int arrSize;
     private FloorsArrayLink[] arrFront;
     private FloorsArrayLink[] arrBack;
@@ -40,7 +38,7 @@ public class FloorsArrayLink {
     public void setPrev(int i, FloorsArrayLink prev) {
         if(this.arrSize>=i)
         {
-        	this.arrBack[i-1]=next;
+        	this.arrBack[i-1]=prev;
         }
     }
 
