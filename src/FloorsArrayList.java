@@ -69,7 +69,13 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public void remove(FloorsArrayLink toRemove) {
-        //@TODO: implement
+        for (int i = toRemove.getArrSize(); i > 1; i--) {
+            FloorsArrayLink prevLink = toRemove.getPrev(i);
+            FloorsArrayLink nextLink = toRemove.getNext(i);
+
+            prevLink.setNext(i, nextLink);
+            nextLink.setPrev(i, prevLink);
+        }
     }
 
     @Override
