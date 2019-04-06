@@ -2,7 +2,7 @@ public class FloorsArrayList implements DynamicSet {
     private FloorsArrayLink infinityLink;
     private FloorsArrayLink negativeInfinityLink;
     private int size;
-    private int maxArrSize;
+    private int maxArrSize; // arrSize of the link with the maximum arrSize in the list
 
 
     public FloorsArrayList(int N) {
@@ -17,6 +17,11 @@ public class FloorsArrayList implements DynamicSet {
         return this.size;
     }
 
+    /**
+     * Iteration algorithm resembles lookup method, read its docstring.
+     * In addition, if the key is between the two links, set the previous and the next links to point to the new link
+     * instead of pointing each other.
+     */
     @Override
     public void insert(double key, int arrSize) {
         int i = this.maxArrSize;
@@ -54,8 +59,10 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public void remove(FloorsArrayLink toRemove) {
-        this.maxArrSize = 0;
+        if (toRemove.getArrSize() == this.maxArrSize)
+            this.maxArrSize = 0;
 
+        // Update the previous and the next link at same array indexes to point to each other
         for (int i = toRemove.getArrSize(); i > 1; i--) {
             FloorsArrayLink prevLink = toRemove.getPrev(i);
             FloorsArrayLink nextLink = toRemove.getNext(i);
@@ -63,6 +70,7 @@ public class FloorsArrayList implements DynamicSet {
             prevLink.setNext(i, nextLink);
             nextLink.setPrev(i, prevLink);
 
+            // Update maxArrSize of the list if necessary
             if (prevLink != this.negativeInfinityLink && prevLink.getArrSize() > this.maxArrSize)
                 this.maxArrSize = prevLink.getArrSize();
             if (nextLink != this.infinityLink && nextLink.getArrSize() > this.maxArrSize)
@@ -72,6 +80,13 @@ public class FloorsArrayList implements DynamicSet {
         this.size--;
     }
 
+    /**
+     * Start with negative infinity link, and set i as the maximum arrSize of a link in the list.
+     * Until the wanted link is found (or it's sure it isn't in the list),
+     * Go to the next closest link (from the right or from the left, depending on the key) at the i-th index.
+     * If the key is not between the two links, continue. Else, reduce i by 1 (so we don't go back to the previous
+     * link) and then continue searching.
+     */
     @Override
     public FloorsArrayLink lookup(double key) {
         int i = this.maxArrSize;
