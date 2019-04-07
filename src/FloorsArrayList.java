@@ -10,7 +10,7 @@ public class FloorsArrayList implements DynamicSet {
         this.negativeInfinityLink = new FloorsArrayLink(Double.NEGATIVE_INFINITY, N);
         initializeInfinities(N);
         this.size = 0;
-        this.maxArrSize = 0;
+        this.maxArrSize = 1;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class FloorsArrayList implements DynamicSet {
     @Override
     public void remove(FloorsArrayLink toRemove) {
         if (toRemove.getArrSize() == this.maxArrSize)
-            this.maxArrSize = 0;
+            this.maxArrSize = 1;
 
         // Update the previous and the next link at same array indexes to point to each other
         for (int i = toRemove.getArrSize(); i > 1; i--) {
