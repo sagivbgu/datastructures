@@ -1,3 +1,5 @@
+package src;
+
 public class FloorsArrayLink {
 
     private double key;
@@ -19,13 +21,23 @@ public class FloorsArrayLink {
     public FloorsArrayLink getNext(int i) {
         if (this.arrSize < i)
             return null;
-        return this.arrFront[i - 1];
+        else if(i>0)
+        	return this.arrFront[i - 1];
+        else if(i==0)
+        	return this.arrFront[0];
+        
+        return null;
     }
 
     public FloorsArrayLink getPrev(int i) {
         if (this.arrSize < i)
             return null;
-        return this.arrBack[i - 1];
+        else if(i>0)
+        	return this.arrBack[i - 1];
+        else if(i==0)
+        	return this.arrBack[0];
+        
+        return null;
     }
 
     public void setNext(int i, FloorsArrayLink next) {
