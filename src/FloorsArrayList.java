@@ -1,8 +1,8 @@
 public class FloorsArrayList implements DynamicSet {
-    private FloorsArrayLink infinityLink;
-    private FloorsArrayLink negativeInfinityLink;
-    private int size;
-    private int maxArrSize; // arrSize of the link with the maximum arrSize in the list
+    protected FloorsArrayLink infinityLink;
+    protected FloorsArrayLink negativeInfinityLink;
+    protected int size;
+    protected int maxArrSize; // arrSize of the link with the maximum arrSize in the list
 
 
     public FloorsArrayList(int N) {
@@ -25,8 +25,20 @@ public class FloorsArrayList implements DynamicSet {
      */
     @Override
     public void insert(double key, int arrSize) {
-        int i = this.maxArrSize;
+        this.size++;
+
         FloorsArrayLink newLink = new FloorsArrayLink(key, arrSize);
+        int i = arrSize;
+        while (i > this.maxArrSize)
+        {
+            insertBetween(newLink, this.negativeInfinityLink, this.infinityLink, i);
+            i--;
+        }
+        // Now i = this.maxArrSize
+
+        if (arrSize > this.maxArrSize)
+            this.maxArrSize = arrSize;
+
         FloorsArrayLink prevLink;
         FloorsArrayLink currLink = this.negativeInfinityLink.getNext(i);
         while (i != 0) {
@@ -51,10 +63,6 @@ public class FloorsArrayList implements DynamicSet {
                 }
             }
         }
-
-        this.size++;
-        if (arrSize > this.maxArrSize)
-            this.maxArrSize = arrSize;
     }
 
     @Override

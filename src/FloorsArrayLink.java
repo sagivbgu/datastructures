@@ -1,9 +1,9 @@
 public class FloorsArrayLink {
 
-    private double key;
-    private final int arrSize;
-    private FloorsArrayLink[] arrFront;
-    private FloorsArrayLink[] arrBack;
+    protected double key;
+    protected final int arrSize;
+    protected FloorsArrayLink[] arrFront;
+    protected FloorsArrayLink[] arrBack;
 
     public FloorsArrayLink(double key, int arrSize) {
         this.key = key;
