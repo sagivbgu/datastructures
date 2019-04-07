@@ -30,7 +30,10 @@ public class FloorsArrayList implements DynamicSet {
         FloorsArrayLink newLink = new FloorsArrayLink(key, arrSize);
         FloorsArrayLink prevLink;
         FloorsArrayLink currLink = this.negativeInfinityLink.getNext(i);
-
+        if(i==0 && currLink==null)
+        {
+        	insertBetween(newLink, this.negativeInfinityLink, this.infinityLink, i);
+        }
         while (i != 0) {
             if (key > currLink.getKey()) {
                 prevLink = currLink;
