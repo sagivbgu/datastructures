@@ -1,5 +1,3 @@
-package src;
-
 public class FloorsArrayList implements DynamicSet {
     private FloorsArrayLink infinityLink;
     private FloorsArrayLink negativeInfinityLink;
@@ -10,6 +8,7 @@ public class FloorsArrayList implements DynamicSet {
     public FloorsArrayList(int N) {
         this.infinityLink = new FloorsArrayLink(Double.POSITIVE_INFINITY, N);
         this.negativeInfinityLink = new FloorsArrayLink(Double.NEGATIVE_INFINITY, N);
+        initializeInfinities(N);
         this.size = 0;
         this.maxArrSize = 0;
     }
@@ -30,10 +29,6 @@ public class FloorsArrayList implements DynamicSet {
         FloorsArrayLink newLink = new FloorsArrayLink(key, arrSize);
         FloorsArrayLink prevLink;
         FloorsArrayLink currLink = this.negativeInfinityLink.getNext(i);
-        if(i==0 && currLink==null)
-        {
-        	insertBetween(newLink, this.negativeInfinityLink, this.infinityLink, i);
-        }
         while (i != 0) {
             if (key > currLink.getKey()) {
                 prevLink = currLink;
@@ -119,28 +114,37 @@ public class FloorsArrayList implements DynamicSet {
 
     @Override
     public double successor(FloorsArrayLink link) {
-        return link.getNext(1).getKey();
+        FloorsArrayLink nextLink = link.getNext(1);
+        if (nextLink == this.infinityLink)
+            return this.negativeInfinityLink.getKey();
+        return nextLink.getKey();
     }
 
     @Override
     public double predecessor(FloorsArrayLink link) {
-        return link.getPrev(1).getKey();
+        FloorsArrayLink prevLink = link.getPrev(1);
+        if (prevLink == this.negativeInfinityLink)
+            return this.infinityLink.getKey();
+        return prevLink.getKey();
     }
 
     @Override
     public double minimum() {
-        if (this.size == 0)
-            return this.negativeInfinityLink.getKey();
-        else
-            return this.negativeInfinityLink.getNext(1).getKey();
+        return this.negativeInfinityLink.getNext(1).getKey();
     }
 
     @Override
     public double maximum() {
-        if (this.size == 0)
-            return this.infinityLink.getKey();
-        else
-            return this.infinityLink.getPrev(1).getKey();
+        return this.infinityLink.getPrev(1).getKey();
+    }
+
+    private void initializeInfinities(int N) {
+        for (int i = 1; i <= N; i++) {
+            this.negativeInfinityLink.setNext(i, this.infinityLink);
+            this.negativeInfinityLink.setPrev(i, this.infinityLink);
+            this.infinityLink.setNext(i, this.negativeInfinityLink);
+            this.infinityLink.setPrev(i, this.negativeInfinityLink);
+        }
     }
 
     private void insertBetween(FloorsArrayLink newLink, FloorsArrayLink predecessor, FloorsArrayLink successor, int i) {

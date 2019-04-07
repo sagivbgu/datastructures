@@ -1,5 +1,3 @@
-package src;
-
 public class FloorsArrayLink {
 
     private double key;
