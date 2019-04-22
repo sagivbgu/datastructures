@@ -90,7 +90,12 @@ class FloorsArrayListTest {
 
     @org.junit.jupiter.api.Test
     void lookup() {
-    	
+    	 FloorsArrayList list = getList();
+    	 assertEquals(2.5, list.lookup(2.5).getKey());
+    	 assertEquals(1, list.lookup(1).getKey());
+    	 assertEquals(2, list.lookup(2).getKey());
+    	 assertEquals(3, list.lookup(3).getKey());
+    	 assertEquals(null, list.lookup(9));
     	
     	
     }
