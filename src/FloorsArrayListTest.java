@@ -110,10 +110,15 @@ class FloorsArrayListTest {
 
     @org.junit.jupiter.api.Test
     void minimum() {
+    	FloorsArrayList list = getList();
+    	assertEquals(1, list.minimum());
+    
     }
 
     @org.junit.jupiter.api.Test
     void maximum() {
+    	FloorsArrayList list = getList();
+    	assertEquals(3, list.maximum());
     }
 
     private FloorsArrayList getEmptyList() {
