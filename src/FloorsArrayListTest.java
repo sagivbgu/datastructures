@@ -90,6 +90,9 @@ class FloorsArrayListTest {
 
     @org.junit.jupiter.api.Test
     void lookup() {
+    	
+    	
+    	
     }
 
     @org.junit.jupiter.api.Test
@@ -110,6 +113,15 @@ class FloorsArrayListTest {
 
     private FloorsArrayList getEmptyList() {
         FloorsArrayList list = new FloorsArrayList(6);
+        return list;
+    }
+    private FloorsArrayList getList() {
+        FloorsArrayList list = getEmptyList();
+        list.insert(1, 2);
+        list.insert(2, 1);
+        list.insert(3, 5);
+        list.insert(2.5, 4);
+
         return list;
     }
 }
