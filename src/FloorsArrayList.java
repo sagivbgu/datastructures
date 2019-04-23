@@ -22,6 +22,7 @@ public class FloorsArrayList implements DynamicSet {
      * Iteration algorithm resembles lookup method, read its docstring.
      * In addition, if the key is between the two links, set the previous and the next links to point to the new link
      * instead of pointing each other.
+     * And at the beginning of the method, point to the negative/positive infinity at indexes higher than the maxArrSize.
      */
     @Override
     public void insert(double key, int arrSize) {
