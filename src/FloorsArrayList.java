@@ -71,7 +71,7 @@ public class FloorsArrayList implements DynamicSet {
             this.maxArrSize = 1;
 
         // Update the previous and the next link at same array indexes to point to each other
-        for (int i = toRemove.getArrSize(); i > 1; i--) {
+        for (int i = toRemove.getArrSize(); i > 0; i--) {
             FloorsArrayLink prevLink = toRemove.getPrev(i);
             FloorsArrayLink nextLink = toRemove.getNext(i);
 
